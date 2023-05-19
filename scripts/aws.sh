@@ -26,6 +26,12 @@ LE_API=$( echo "$LE_WILDCARD" | cut -d'.' -f2- )
 LE_API="api.$LE_API"
 echo "API: $LE_API"
 
+echo "Register account with ZeroSSL"
+./acme.sh  --register-account  --server zerossl \
+        --eab-kid  $EAB_KID  \
+        --eab-hmac-key $EAB_HMAC_Key \
+        --home /tmp
+
 issue_args=(
     --issue
     --dns dns_aws

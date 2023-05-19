@@ -1,12 +1,8 @@
 FROM registry.access.redhat.com/ubi8/ubi:8.2
 
 # Home directories required by acme.sh script.
-ENV OCP_TOOLS_VERSION=4.4
-ENV ACME_VERSION=2.8.6
-
-WORKDIR /scripts
-
-COPY scripts .
+ENV OCP_TOOLS_VERSION=4.12
+ENV ACME_VERSION=3.0.5
 
 # OpenSSL, curl and socat required for script.
 RUN dnf makecache && \
@@ -23,5 +19,9 @@ RUN curl https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable-$OCP_T
 WORKDIR /source
 
 RUN curl -L https://github.com/acmesh-official/acme.sh/archive/$ACME_VERSION.tar.gz | tar -xz
+
+WORKDIR /scripts
+
+COPY scripts .
 
 WORKDIR /
